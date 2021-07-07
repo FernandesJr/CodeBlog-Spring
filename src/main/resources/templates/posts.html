@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>CodeBlog</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<body>
+    <header>
+        <!-- NavBar Como um span -->
+        <nav class="navbar navbar-light bg-light" style="font">
+            <span class="navbar-brand mb-0 h1" style="font-weight:bold;">MyCodeBlog FernandesJr.</span>
+        </nav>
+    </header>
+
+    <section>
+
+        <div  class="container" style="width: 60%; padding-bottom: 20px;">
+            <nav aria-label="breadcrumb" style="background-color: white !important;">
+                <ol class="breadcrumb" style="background-color: white !important; padding-left:0px;">
+                    <li class="breadcrumb-item active" aria-current="page">Posts</li>
+                </ol>
+            </nav>
+            <div class="shadow p-3 mb-5 bg-white rounded" style="margin-top: 20px;" th:each="post : ${posts}" >
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-subtitle mb-2 text-muted" style="font-size: 0.8rem;">
+                            <span th:text="${post.autor}"></span>
+                            <span th:text="${post.data}"></span>
+                        </p>
+                        <!--cc = Iniciais do Controller para onde o link aponta, e depois o método -->
+                        <a th:href="${(#mvc.url('CC#getPostDetails').arg(0, post.id)).build()}"><h4 class="card-title" style="font-weight: bold; color: black; padding-top: 5px;"><span th:text="${post.titulo}"></span></h4></a>
+                        <p class="card-text"><span th:utext="${#strings.abbreviate(post.texto,400)} "></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
