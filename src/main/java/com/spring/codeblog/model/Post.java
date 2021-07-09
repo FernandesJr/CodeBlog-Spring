@@ -3,6 +3,7 @@ package com.spring.codeblog.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
 @Entity
@@ -13,14 +14,17 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.AUTO) //Auto-Incremeto
     private long id;
 
+    @NotBlank
     private String titulo;
 
+    @NotBlank
     @Lob
     private  String texto;
 
+    @NotBlank
     private String autor;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM- yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate data;
 
     public long getId() {
@@ -36,7 +40,7 @@ public class Post {
     }
 
     public void setTitulo(String titulo) {
-        titulo = titulo;
+        this.titulo = titulo;
     }
 
     public String getTexto() {

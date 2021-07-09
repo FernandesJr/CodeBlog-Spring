@@ -11,7 +11,9 @@
         <!-- NavBar Como um span -->
         <nav class="navbar navbar-light bg-light" style="font">
             <span class="navbar-brand mb-0 h1" style="font-weight:bold;">MyCodeBlog FernandesJr.</span>
+            <a href="/newpost" class="btn btn-primary" role="button" style="right: 0px;">Novo Post</a>
         </nav>
+
     </header>
 
     <section>
@@ -31,7 +33,7 @@
                         </p>
                         <!--cc = Iniciais do Controller para onde o link aponta, e depois o método -->
                         <a th:href="${(#mvc.url('CC#getPostDetails').arg(0, post.id)).build()}"><h4 class="card-title" style="font-weight: bold; color: black; padding-top: 5px;"><span th:text="${post.titulo}"></span></h4></a>
-                        <p class="card-text"><span th:utext="${#strings.abbreviate(post.texto,400)} "></span></p>
+                        <p class="card-text" style="text-align: justify;"><span th:utext="${#strings.abbreviate(post.texto,400)}"></span></p>
                     </div>
                 </div>
             </div>
