@@ -30,4 +30,14 @@ public class CodeblogServiceImpl implements CodeblogService {
     public Post save(Post post) {
         return this.codeblogRepository.save(post);
     }
+
+    @Override
+    public Post updatePost(Post post){
+        return this.codeblogRepository.saveAndFlush(post);
+    }
+
+    @Override
+    public void delete(Post post) {
+        this.codeblogRepository.delete(post);
+    }
 }
