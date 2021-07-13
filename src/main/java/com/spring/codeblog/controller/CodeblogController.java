@@ -38,6 +38,12 @@ public class CodeblogController {
         ModelAndView mv = new ModelAndView("postDetails"); //Nome da tela que irá retornar
         Post post = codeblogService.findById(id);
         mv.addObject("post", post); //Setando o atributo para capturar lá na View
+        DateTimeFormatter dfd = DateTimeFormatter.ofPattern("dd/MM/yy");
+
+        //Formatando data
+        String dateFormatt = post.getData().format(dfd);
+        mv.addObject("dateFormatt", dateFormatt);
+
         return mv;
     }
 
@@ -56,9 +62,7 @@ public class CodeblogController {
             attributes.addFlashAttribute("mensagem", "Verifique se os campos obrigatórios foram preenchidos!");
             return "redirect:/newpost";
         }
-        //Salvanado Post no DB
-        DateTimeFormatter dfd = DateTimeFormatter.ofPattern("dd/MM/yy");
-        //LocalDate data = new;
+
         post.setData(LocalDate.now());
         codeblogService.save(post);
         return "redirect:/posts";
@@ -68,5 +72,12 @@ public class CodeblogController {
     public String delPost(@PathVariable("post") Post post){
         this.codeblogService.delete(post);
         return "redirect:/posts";
+    }
+
+    @RequestMapping(value = "/editpost/{post}", method = RequestMethod.GET)
+    public ModelAndView editPost(@PathVariable("post") Post post){
+        ModelAndView mv = new ModelAndView("editPost");
+        mv.addObject("post", post);
+        return mv;
     }
 }

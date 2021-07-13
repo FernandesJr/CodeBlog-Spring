@@ -19,7 +19,7 @@ public class Post {
 
     @NotBlank
     @Lob
-    private  String texto;
+    private String texto;
 
     @NotBlank
     private String autor;
