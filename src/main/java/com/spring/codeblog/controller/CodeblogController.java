@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 //Representa o Servelet
@@ -56,10 +57,16 @@ public class CodeblogController {
             return "redirect:/newpost";
         }
         //Salvanado Post no DB
-        //DateTimeFormatter dfd = DateTimeFormatter.ofPattern("dd/MM/yy");
-        //.format()
+        DateTimeFormatter dfd = DateTimeFormatter.ofPattern("dd/MM/yy");
+        //LocalDate data = new;
         post.setData(LocalDate.now());
         codeblogService.save(post);
+        return "redirect:/posts";
+    }
+
+    @RequestMapping(value = "/delpost/{post}", method = RequestMethod.GET)
+    public String delPost(@PathVariable("post") Post post){
+        this.codeblogService.delete(post);
         return "redirect:/posts";
     }
 }

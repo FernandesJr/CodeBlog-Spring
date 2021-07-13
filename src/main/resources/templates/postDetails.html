@@ -61,7 +61,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-danger">Excluir</button>
+                    <!--<button type="button" class="btn btn-danger" >Excluir</button>-->
+                    <a th:href="${(#mvc.url('CC#delPost').arg(0, post)).build()}" class="btn btn-danger">Exluir</a>
                 </div>
             </div>
         </div>
