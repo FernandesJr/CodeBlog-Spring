@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 //Representa o Servelet
@@ -28,7 +29,11 @@ public class CodeblogController {
     public ModelAndView getPosts(){
         ModelAndView mv = new ModelAndView("posts"); //Nome da tela que irá retornar
         List<Post> posts = codeblogService.findAll();
-        mv.addObject("posts", posts); //Setando o atributo para capturar lá na View
+        ArrayList<Post> postsOrdem = new ArrayList<Post>();
+        for (int i = posts.size(); i > 0; i--){
+            postsOrdem.add(posts.get(i-1));
+        }
+        mv.addObject("posts", postsOrdem); //Setando o atributo para capturar lá na View
         return mv;
     }
 
@@ -79,5 +84,22 @@ public class CodeblogController {
         ModelAndView mv = new ModelAndView("editPost");
         mv.addObject("post", post);
         return mv;
+    }
+
+    @RequestMapping(value = "/editpost", method = RequestMethod.POST)
+    public String editpost(@Valid Post post, BindingResult result, RedirectAttributes attributes){
+        //verificar se todos os campos estão preenchidos
+        if(result.hasErrors()){
+            attributes.addFlashAttribute("mensagem", "Verifique se os campos obrigatórios foram preenchidos!");
+            return "redirect:/editpost/"+post.getId();
+        }
+
+        //Buscando a data de criação do post
+        Post postDB = this.codeblogService.findById(post.getId());
+        post.setData(postDB.getData());
+
+        //Atulalizando post no DB
+        this.codeblogService.updatePost(post);
+        return "redirect:/posts";
     }
 }

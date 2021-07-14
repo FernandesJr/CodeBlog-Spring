@@ -38,7 +38,8 @@
             <!-- -->
             <th:block th:include="mensagemValidacao"></th:block>
             <!--<layout:block layout:replace="${mensagemValidacao}"></layout:block>-->
-            <form method="post">
+            <form method="post" action="/editpost">
+                <input type="text" name="id" th:value="${post.id}" style="display: none;">
                 <div class="form-group">
                     <input type="text" class="form-control" name="titulo" placeholder="Título *" th:value="${post.titulo}">
                 </div>
